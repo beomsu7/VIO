@@ -11,19 +11,21 @@
 
   <!-- launch node to throttle images for logging -->
   <node name="drop_image1" pkg="topic_tools" type="drop" output="screen"
-    args="/camera/fisheye1/image_raw  9 10">
+    args="/t265/fisheye1/image_raw  9 10">
   </node>
   <node name="drop_image2" pkg="topic_tools" type="drop" output="screen"
-    args="/camera/fisheye2/image_raw  9 10">
+    args="/t265/fisheye2/image_raw  9 10">
   </node>
 
   <!-- Throttle odometry messages to a fixed rate around 25Hz -->
   <node name="odom_throttler" type="drop" pkg="topic_tools" 
-    args="/camera/odom/sample 7 8 /camera/odom/sample_throttled" >
+    args="/t265/odom/sample 7 8 /t265/odom/sample_throttled" >
   </node>
 
   <!-- Launch Realsense Camera -->
   <include file="$(find realsense2_camera)/launch/rs_t265.launch" >
+      <arg name="camera"                   value="t265"/>
+      <arg name="tf_prefix"                value="camera"/>
       <arg name="enable_fisheye1"          value="true"/>
       <arg name="enable_fisheye2"          value="true"/>
       <arg name="fisheye_fps"              value="30"/>
@@ -36,7 +38,7 @@
 
   <env name="ROSCONSOLE_CONFIG_FILE" value="$(find px4_realsense_bridge)/resource/custom_rosconsole.conf"/>
 
-  <arg name="input_topic" default="[/camera/odom/sample]"/>
+  <arg name="input_topic" default="[/t265/odom/sample]"/>
 
   <!-- Bridge node -->
   <node name="px4_realsense_bridge_node" pkg="px4_realsense_bridge" type="px4_realsense_bridge_node" output="screen" >
