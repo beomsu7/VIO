@@ -13,7 +13,7 @@
   <!-- Launch MavROS -->
   <group ns="$(arg ns)">
       <include file="$(find mavros)/launch/node.launch">
-          <arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
+          <arg name="pluginlists_yaml" value="$(find px4_realsense_bridge)/launch/px4_pluginlists.yaml" />
           <!-- Need to change the config file to get the tf topic and get local position in terms of local origin -->
           <arg name="config_yaml" value="$(find mavros)/launch/px4_config.yaml" />
           <arg name="fcu_url" value="$(arg fcu_url)" />
